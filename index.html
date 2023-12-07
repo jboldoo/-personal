@@ -12,13 +12,15 @@
       <div class="container">
         <nav>
           <img class="logo" src="./images/logo.jpg" />
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Portfolio</a></li>
-            <li><a href="#">Contact</a></li>
+          <ul id="sidemenu">
+            <li><a href="#header">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <i class="fas fa-times" onclick="closemenu()"></i>
           </ul>
+          <i class="fas fa-bars" onclick="openmenu()"></i>
         </nav>
         <div class="header-text">
           <p></p>
@@ -28,7 +30,7 @@
     </div>
     <!-- --------------------about-------------------------  -->
     <div id="about">
-      <div class="contanier">
+      <div class="container">
         <div class="row">
           <div class="about-col-1">
             <img src="./images/background.jpg" />
@@ -136,6 +138,37 @@
       <a href="#" class="btn">See more</a>
     </div>
   </div>
+  <!-- -------------contact----------------- -->
+  <div id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="contact-left">
+          <h1 class="sub-title">Contact me</h1>
+          <p> <i class="fa-solid fa-paper-plane"></i>jboldoo98@gmail.com</p>
+          <p><i class="fa-solid fa-phone"></i>95404084</p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/temeett" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://x.com/bolderdenej" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://instagram.com/jboldoo" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://tiktok.com/@bolderdenej" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+          <a href="./images/my-cv.pdf" download target="_blank" class="btn btn2">Download CV</a>
+        </div>
+        <div class="contact-right">
+          <form name="submit-to-google-sheet">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Your email" required>
+            <textarea name="message" rows="6" placeholder="Your message"></textarea> 
+            <button class="btn btn2" type="submit">Submit</button>
+          </form>
+          <span id="msg"></span>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>Copyright &copy; JB</p>
+    </div>
+  </div>
 
 
 
@@ -158,5 +191,31 @@
         document.getElementById(tabname).classList.add("active-tab");
       }
     </script>
+    <script>
+      sidemenu=document.getElementById('sidemenu')
+      function openmenu(){
+        sidemenu.style.right='0'
+      }
+      function closemenu(){
+        sidemenu.style.right='-200px'
+      }
+    </script>
+    <script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyZQxNwHG_IY4SStBBRuYt_VN58DYhqlUfg8vSwYswxd3DCy7q7KkRYTQfOF8wjXLEinQ/exec'
+  const form = document.forms['submit-to-google-sheet']
+  const msg=document.getElementById('msg')
+
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response =>{
+        msg.innerHTML='Мессеж  амжилттай илгээгдлээ.'
+        setTimeout(()=>msg.innerHTML='',5000)
+        form.reset()
+      })
+      .catch(error => console.error('Error!', error.message))
+  })
+</script>
       </body>
 </html>
